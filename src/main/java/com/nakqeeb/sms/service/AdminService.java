@@ -1,5 +1,7 @@
 package com.nakqeeb.sms.service;
 
+import com.nakqeeb.sms.dao.StudentRepository;
+import com.nakqeeb.sms.dao.TeacherRepository;
 import com.nakqeeb.sms.dao.UserRepository;
 import com.nakqeeb.sms.dto.ActivateUserDto;
 import com.nakqeeb.sms.entity.RoleEnum;
@@ -18,9 +20,13 @@ import java.util.Optional;
 @Transactional
 public class AdminService {
     private final UserRepository userRepository;
+    private final StudentRepository studentRepository;
+    private final TeacherRepository teacherRepository;
 
-    public AdminService(UserRepository userRepository) {
+    public AdminService(UserRepository userRepository, StudentRepository studentRepository, TeacherRepository teacherRepository) {
         this.userRepository = userRepository;
+        this.studentRepository = studentRepository;
+        this.teacherRepository = teacherRepository;
     }
 
     public List<User> findAllUsers() {
@@ -46,5 +52,13 @@ public class AdminService {
         user.get().setActivated(activateUserDto.isActivated());
 
         userRepository.save(user.get());
+    }
+
+    public long countStudents() {
+        return studentRepository.count();
+    }
+
+    public long countTeachers() {
+        return teacherRepository.count();
     }
 }

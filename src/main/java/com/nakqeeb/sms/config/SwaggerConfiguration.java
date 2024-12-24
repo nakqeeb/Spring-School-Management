@@ -19,18 +19,27 @@ public class SwaggerConfiguration {
         return new OpenAPI().addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
                 .components(new Components().addSecuritySchemes("Bearer Authentication", createAPIKeyScheme()))
                 .info(new Info().title("School Management System [SMS]")
-                        .description("Posts App is a modular Spring Boot application providing user authentication, post management, and admin capabilities. It features:\n" +
-                                "\n" +
-                                "\t•\tAuth Module: User registration and login endpoints.\n" +
-                                "\t•\tPosts Module: Create, update, delete, and view posts. Authenticated and non-authenticated users can access approved posts.\n" +
-                                "\t•\tAdmin Module: Manage user roles, activate accounts, approve posts, fetch user/post information, and track login statistics.\n" +
-                                "\t•\tIt supports features like comments, post analytics, and a like system to enhance user engagement.\n" +
-                                "\t•\tThe app ensures each user can like a post only once, they also have the option to remove their like (unlike) if desired and tracks post views and likes to offer detailed insights.\n" +
-                                "\t•\tViewing Count: An aspect is used to implement and track the number of views per post.\n" +
-                                "\t•\tLogin Counter: An Aspect is used to log login attempts and record successful and failed logins, offering detailed insights into authentication activities.")
-                        .version("1.0").contact(new Contact().name("Nakqeeb").email("nakqeeb@gmail.com").url("https://nakqeeb.github.io/portfolio/"))
-                        .license(new License().name("License of API")
-                                .url("API license URL")));
+                        .description("""
+                                The School Management System (SMS) is a comprehensive Spring Boot application designed to streamline academic and administrative tasks. Key features include:
+                                
+                                - **User Role Management**: Supports Students, Teachers, Admins, and Principals with role-specific functionalities.
+                                - **Modules**:
+                                    - **User Management**: Handles user registration, authentication, and role-based access.
+                                    - **Attendance Tracking**: Record and track attendance for students and teachers.
+                                    - **Examination and Grades**: Manage exams, calculate grades, and generate detailed reports.
+                                    - **Fee Management**: Track and manage student fee statuses.
+                                    - **Notifications**: Send notifications to specific users or groups (students/teachers).
+                                    - **Announcements**: Post time-sensitive announcements visible to specific audiences.
+                                - **Security**: Implements JWT authentication and role-based access control.
+                                - **Swagger Documentation**: Provides a detailed, interactive API interface for developers.
+                                """)
+                        .version("1.0")
+                        .contact(new Contact()
+                                .name("Nakqeeb")
+                                .email("nakqeeb@gmail.com")
+                                .url("https://nakqeeb.github.io/portfolio/"))
+                        .license(new License().name("API License")
+                                .url("https://example.com/api-license")));
     }
 
     private SecurityScheme createAPIKeyScheme() {
@@ -38,5 +47,4 @@ public class SwaggerConfiguration {
                 .bearerFormat("JWT")
                 .scheme("bearer");
     }
-
 }

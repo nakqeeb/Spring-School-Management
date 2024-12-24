@@ -1,6 +1,7 @@
 package com.nakqeeb.sms.controller;
 
 import com.nakqeeb.sms.dto.ActivateUserDto;
+import com.nakqeeb.sms.dto.CountResponseDto;
 import com.nakqeeb.sms.entity.RoleEnum;
 import com.nakqeeb.sms.entity.User;
 import com.nakqeeb.sms.exception.ErrorMapper;
@@ -89,6 +90,18 @@ public class AdminController {
         } catch (Exception e) {
             return new ResponseEntity<>(this.errorMapper.createErrorMap(e), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @Operation(
+            summary = "Get Student and Teacher Counts",
+            description = "Retrieves the total number of students and teachers."
+    )
+    @GetMapping("/count")
+    public ResponseEntity<CountResponseDto> getCounts() {
+        long studentCount = adminService.countStudents();
+        long teacherCount = adminService.countTeachers();
+        CountResponseDto response = new CountResponseDto(studentCount, teacherCount);
+        return ResponseEntity.ok(response);
     }
 
     private boolean isValidRole(String role) {
